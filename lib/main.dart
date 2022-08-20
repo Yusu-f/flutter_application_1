@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Providers/locations_provider.dart';
+import 'package:flutter_application_1/controllers/firstPage_controller.dart';
+import 'package:provider/provider.dart';
+// import 'package:flutter_application_1/ownawp/location.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,15 +13,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => locationsProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            primarySwatch: Colors.green,
+            // appBarTheme: const AppBarTheme(elevation: 0, color: Colors.white),
+            scaffoldBackgroundColor: Colors.white),
+        // home: const MyHomePage(title: 'e-Vending machine'),
+        home: const FirstPageScreen(),
       ),
-      home: const MyHomePage(title: 'e-Vending machine'),
     );
   }
 }
+
+//rgb 49 89 130
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -29,14 +41,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView(
-        children: <Widget>[
+        children: const <Widget>[
           // const Text(
           //   'You have pushed the button this many times:',
           // ),
@@ -110,7 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        tooltip: 'Increment',
         label: const Text("Checkout"),
         // child: const Text(
         //   'Checkout',
@@ -121,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ItemCard extends StatefulWidget {
-  ItemCard(
+  const ItemCard(
       {Key? key,
       required this.itemName,
       required this.description,
